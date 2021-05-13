@@ -1,11 +1,11 @@
 <template>
-  <div>twsgfsgdsgdfg</div>
+  <div>Data</div>
   <i class="iconfont caina"></i>
 </template>
 
 <script>
 export default {
-  name: "Home",
+  name: "Data",
   setup () {
 
 

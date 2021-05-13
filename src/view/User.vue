@@ -1,11 +1,10 @@
 <template>
-  <div>twsgfsgdsgdfg</div>
-  <i class="iconfont caina"></i>
+  <router-link to="/login">前往登录注册</router-link>
 </template>
 
 <script>
 export default {
-  name: "Home",
+  name: "User",
   setup () {
 
 
