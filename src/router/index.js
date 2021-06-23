@@ -1,5 +1,5 @@
-import { defineAsyncComponent } from 'vue'
-import { createRouter, createWebHashHistory } from 'vue-router'
+import {defineAsyncComponent} from 'vue'
+import {createRouter, createWebHashHistory} from 'vue-router'
 // 
 const Home = () => import('../views/Home.vue')
 const Data = () => import('../views/Data.vue')

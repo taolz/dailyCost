@@ -54,7 +54,7 @@ export default {
     })
 
     const handleOk = async () => {
-      if (state.newPass != state.newPass2) {
+      if (state.newPass !== state.newPass2) {
         Toast.fail('新密码不一致')
         return
       }

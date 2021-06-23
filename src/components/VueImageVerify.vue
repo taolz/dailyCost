@@ -52,10 +52,10 @@ export default {
        * 5.干扰点
        */
       const ctx = verify.value.getContext('2d')
-      // 验证码范围
-      ctx.fillRect(0, 0, state.width, state.height)
       // 填充颜色
       ctx.fillStyle = randomColor(180, 230)
+      // 填充的位置
+      ctx.fillRect(0, 0, state.width, state.height)
       // 定义paramText
       let imgCode = ''
       // 4.随机产生字符串，并且随机旋转

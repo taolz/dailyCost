@@ -16,14 +16,14 @@
           <span
             @click="changeType('expense')"
             class="expense"
-            :class="{ active: totalType == 'expense' }"
+            :class="{ active: totalType === 'expense' }"
           >
             支出
           </span>
           <span
             @click="changeType('income')"
             class="income"
-            :class="{ active: totalType == 'income' }"
+            :class="{ active: totalType === 'income' }"
           >
             收入
           </span>
@@ -32,15 +32,15 @@
       <div class="content">
         <div
           class="item"
-          v-for="item in totalType == 'expense' ? expense_data : income_data"
+          v-for="item in totalType === 'expense' ? expense_data : income_data"
           :key="item.type_id"
         >
           <div class="left">
             <div class="type">
               <span
                 :class="{
-                  expense: totalType == 'expense',
-                  income: totalType == 'income',
+                  expense: totalType === 'expense',
+                  income: totalType === 'income'
                 }"
               >
                 <i
@@ -53,10 +53,10 @@
             <div class="progress">
               {{
                 Number(
-                  (item.number /
-                    Number(
-                      totalType == 'expense' ? total_expense : total_income
-                    )) *
+                    (item.number /
+                        Number(
+                            totalType === 'expense' ? total_expense : total_income
+                        )) *
                     100
                 ).toFixed(2)
               }}%
@@ -69,7 +69,7 @@
                   Number(
                     (item.number /
                       Number(
-                        totalType == 'expense' ? total_expense : total_income
+                        totalType === 'expense' ? total_expense : total_income
                       )) *
                       100
                   )
@@ -92,14 +92,14 @@
           <span
             @click="changeType('expense')"
             class="expense"
-            :class="{ active: pieType == 'expense' }"
+            :class="{ active: pieType === 'expense' }"
           >
             支出
           </span>
           <span
             @click="changeType('income')"
             class="income"
-            :class="{ active: pieType == 'income' }"
+            :class="{ active: pieType === 'income' }"
           >
             收入
           </span>
@@ -114,7 +114,7 @@
 <script>
 import { ref, onMounted, reactive, toRefs } from 'vue'
 import PopMonth from '../components/PopMonth.vue'
-import { typeMap } from '../utils'
+import { typeMap } from '@/utils'
 import * as echarts from 'echarts'
 import axios from '../utils/axios'
 import dayjs from 'dayjs'
@@ -148,8 +148,8 @@ export default {
       state.total_income = data.total_income
 
       // 过滤支出和收入
-      state.expense_data = data.total_data.filter(item => item.pay_type == 1).sort((a, b) => b.number - a.number)
-      state.income_data = data.total_data.filter(item => item.pay_type == 2).sort((a, b) => b.number - a.number)
+      state.expense_data = data.total_data.filter(item => item.pay_type === 1).sort((a, b) => b.number - a.number)
+      state.income_data = data.total_data.filter(item => item.pay_type === 2).sort((a, b) => b.number - a.number)
 
       setPieChart()
     }
@@ -165,7 +165,7 @@ export default {
     const setPieChart = () => {
       // 准备一个具备高宽的 DOM 容器,通过 echarts.init 方法初始化一个 echarts 实例
       const proportionChart = echarts.init(document.getElementById('proportion'))
-      const _data = state.pieType == 'expense' ? state.expense_data : state.income_data
+      const _data = state.pieType === 'expense' ? state.expense_data : state.income_data
       //  设置图表实例的配置项以及数据
       proportionChart.setOption({
         // 提示框组件
@@ -353,9 +353,6 @@ export default {
           align-items: center;
           .percent {
             width: 160px;
-          }
-          .momey {
-            width: 100px;
           }
         }
       }

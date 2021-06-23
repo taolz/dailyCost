@@ -102,17 +102,19 @@ export default {
     // 下拉刷新
     const onRefresh = () => {
       // list 的 load事件
+      // 清空列表数据
       state.finished = false
-      state.loading = true
+      // 页数重制
       state.page = 1
       state.refreshing = true
+      state.loading = true
       onLoad()
     }
     // popType;打开类型弹窗
     const toggle = () => {
       popRef.value.toggle()
     }
-    // 在 poptType 选择的
+    // 在 popType 选择的
     const select = (item) => {
       state.currentSelect = item
       onRefresh()
@@ -223,7 +225,7 @@ export default {
     border: 1px solid #e9e9e9;
     font-size: 20px;
     background-color: #fff;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
     color: @primary;
   }
 }

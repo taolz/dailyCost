@@ -5,8 +5,8 @@
       <div class="type">
         <span
           :class="{
-            expense: detail.pay_type == 1,
-            income: detail.pay_type == 2,
+            expense: detail.pay_type === 1,
+            income: detail.pay_type === 2
           }"
         >
           <i
@@ -16,7 +16,7 @@
         </span>
         <span>{{ detail.type_name || '' }}</span>
       </div>
-      <div class="amount expense" v-if="detail.pay_type == 1">
+      <div class="amount expense" v-if="detail.pay_type === 1">
         -{{ detail.amount }}
       </div>
       <div class="amount income" v-else>+{{ detail.amount }}</div>
@@ -51,7 +51,7 @@ import { onMounted, reactive, ref, toRefs } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import Header from '../components/Header.vue'
 import PopAdd from '../components/PopAdd.vue'
-import { typeMap } from '../utils'
+import { typeMap } from '@/utils'
 import axios from '../utils/axios'
 import { Toast, Dialog } from 'vant'
 
@@ -62,16 +62,16 @@ export default {
     PopAdd
   },
   setup () {
-    const popAddRef = ref(null)
     const route = useRoute()
     const router = useRouter()
     const { id } = route.query
+    const popAddRef = ref(null)
     const state = reactive({
       typeMap,
       detail: {}
     })
 
-    onMounted(async () => {
+    onMounted( () => {
       getDetail()
     })
 

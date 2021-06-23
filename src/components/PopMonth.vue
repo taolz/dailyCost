@@ -20,9 +20,9 @@
 import { reactive, toRefs } from 'vue'
 import dayjs from 'dayjs'
 export default {
-  // props: {
-  //   select: Function
-  // },
+  props: {
+    select: Function
+  },
   setup (props, ctx) {
     const state = reactive({
       show: false,

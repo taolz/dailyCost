@@ -8,12 +8,12 @@
       </div>
     </div>
     <van-cell
-      :class="{ expense: item.pay_type == 1, income: item.pay_type == 2 }"
+      :class="{ expense: item.pay_type === 1, income: item.pay_type === 2 }"
       v-for="item in bill.bills"
       :key="item.id"
       @click="goToDetail(item)"
       :title="item.type_name"
-      :value="`${item.pay_type == 1 ? '-' : '+'}${item.amount}`"
+      :value="`${item.pay_type === 1 ? '-' : '+'}${item.amount}`"
       :label="`${$filters.transTime(item.date)}${
         item.remark ? ' | ' + item.remark : ''
       }`"
@@ -39,11 +39,11 @@ export default {
       expense: 0
     })
 
-    state.income = props.bill.bills.filter(ele => ele.pay_type == 2).reduce((prev, currItem) => {
+    state.income = props.bill.bills.filter(ele => ele.pay_type === 2).reduce((prev, currItem) => {
       prev += Number(currItem.amount)
       return prev
     }, 0)
-    state.expense = props.bill.bills.filter(ele => ele.pay_type == 1).reduce((prev, currItem) => {
+    state.expense = props.bill.bills.filter(ele => ele.pay_type === 1).reduce((prev, currItem) => {
       prev += Number(currItem.amount)
       return prev
     }, 0)
@@ -71,7 +71,7 @@ export default {
   border-radius: 10px;
   overflow: hidden;
   margin-bottom: 10px;
-  box-shadow: 0 0 4px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
   .header-date {
     display: flex;
     align-items: center;

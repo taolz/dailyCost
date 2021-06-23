@@ -1,7 +1,7 @@
 <template>
   <div class="user">
     <div class="head">
-      <img class="avatar" src="//s.yezgea02.com/1606836859539/onpeice.png" />
+      <img class="avatar" src="https://s.yezgea02.com/1606836859539/onpeice.png"  alt=""/>
       <div class="info">
         <span class="name">{{ user.username || '' }}</span>
         <span class="slogen">个性签名：{{ user.signature || '' }}</span>
@@ -78,8 +78,8 @@ export default {
       visibleRate: false,
       rate: 4.5
     })
-    onMounted(async () => {
-      getUserInfo()
+    onMounted( async () => {
+      await getUserInfo()
     })
     // 取得个人信息
     const getUserInfo = async () => {
@@ -151,9 +151,8 @@ export default {
   .footer {
     .logout {
       display: block;
-      margin: 0 auto;
       width: 90%;
-      margin-top: 20px;
+      margin: 20px auto 0;
       background-color: @primary;
       border-color: @primary;
     }

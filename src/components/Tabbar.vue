@@ -1,12 +1,12 @@
 <template>
   <van-tabbar v-model="active">
-    <van-tabbar-item icon="notes-o" name="/home" @click="link('/home')">
+    <van-tabbar-item name="/home" icon="notes-o" @click="link('/home')">
       明细
     </van-tabbar-item>
-    <van-tabbar-item icon="bar-chart-o" name="/data" @click="link('/data')">
+    <van-tabbar-item name="/data" icon="bar-chart-o" @click="link('/data')">
       统计
     </van-tabbar-item>
-    <van-tabbar-item icon="user-o" name="/user" @click="link('/user')">
+    <van-tabbar-item name="/user" icon="user-o" @click="link('/user')">
       我的
     </van-tabbar-item>
   </van-tabbar>
@@ -30,7 +30,7 @@ export default {
     })
 
     router.afterEach(() => {
-      active.value = router.currentRoute.value.path;
+      active.value = router.currentRoute.value.path
     })
 
     return {

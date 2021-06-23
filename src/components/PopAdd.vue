@@ -19,14 +19,14 @@
           <span
             @click="changeType('expense')"
             class="expense"
-            :class="{ active: payType == 'expense' }"
+            :class="{ active: payType === 'expense' }"
           >
             支出
           </span>
           <span
             @click="changeType('income')"
             class="income"
-            :class="{ active: payType == 'income' }"
+            :class="{ active: payType === 'income' }"
           >
             收入
           </span>
@@ -40,7 +40,7 @@
         <span class="amount animation">{{ amount }}</span>
       </div>
       <div class="type-warp">
-        <div class="type-body" v-if="payType == 'expense'">
+        <div class="type-body" v-if="payType === 'expense'">
           <div
             class="type-item"
             v-for="item in expense"
@@ -50,7 +50,7 @@
             <span
               class="iconfont-wrap expense"
               :class="{
-                active: currentType.id == item.id,
+                active: currentType.id === item.id
               }"
             >
               <i class="iconfont" :class="typeMap[item.id].icon" />
@@ -69,7 +69,7 @@
               :class="{
                 'iconfont-wrap': true,
                 income: true,
-                active: currentType.id == item.id,
+                active: currentType.id === item.id
               }"
             >
               <i class="iconfont" :class="typeMap[item.id].icon" />
@@ -119,13 +119,13 @@
 
 <script>
 import { reactive, toRefs, onMounted, ref } from 'vue'
-import { typeMap } from '../utils'
+import { typeMap } from '@/utils'
 import axios from '../utils/axios'
 import { Toast } from 'vant'
 import dayjs from 'dayjs'
 export default {
   props: {
-    // refresh: Function,
+    refresh: Function,
     detail: {
       type: Object,
       default: {}
@@ -136,10 +136,10 @@ export default {
     const remarkVisible = ref(false)
 
     const state = reactive({
-      typeMap, // 类型key-value键值对
+      typeMap: typeMap, // 类型key-value键值对
       show: false, // 显示隐藏添加账单弹窗
       amount: id ? props.detail.amount : '', // 账单价格
-      payType: id ? (props.detail.pay_type == 1 ? 'expense' : 'income') : 'expense', // 支出或收入类型
+      payType: id ? (props.detail.pay_type === 1 ? 'expense' : 'income') : 'expense', // 支出或收入类型
       expense: [], // 支出类型数组
       income: [], // 收入类型数组
       currentType: id ? {
@@ -154,8 +154,8 @@ export default {
     onMounted(async () => {
       // 消费类型列表
       const { data: { list } } = await axios.get('/type/list')
-      state.expense = list.filter(ele => ele.type == 1)
-      state.income = list.filter(ele => ele.type == 2)
+      state.expense = list.filter(ele => ele.type === '1')
+      state.income = list.filter(ele => ele.type === '2')
       // 没有 id 的情况下，说明是新建账单。
       if (!id) {
         state.currentType = state.expense[0]
@@ -168,9 +168,9 @@ export default {
     // 金额输入框
     const inputChange = (value) => {
       // 有两个.时退出
-      if (value == '.' && state.amount.includes('.')) return
+      if (value === '.' && state.amount.includes('.')) return
       // 超过两位小数退出
-      if (value != '.' && state.amount.includes('.') && state.amount && state.amount.split('.')[1].length >= 2) return
+      if (value !== '.' && state.amount.includes('.') && state.amount && state.amount.split('.')[1].length >= 2) return
       state.amount += value
     }
     // 删除输入框最后一位
@@ -204,7 +204,7 @@ export default {
         type_id: state.currentType.id,
         type_name: state.currentType.name,
         date: dayjs(state.date).unix() * 1000,
-        pay_type: state.payType == 'expense' ? 1 : 2,
+        pay_type: state.payType === 'expense' ? 1 : 2,
         remark: state.remark || ''
       }
       // 有id代表更新
@@ -346,8 +346,8 @@ export default {
   .type-warp {
     display: flex;
     overflow-x: auto;
-    margin: 0 24px;
-    margin-bottom: 20px;
+    margin: 0 24px 20px;
+
     * {
       touch-action: pan-x;
     }
